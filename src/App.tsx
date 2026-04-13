@@ -3,10 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import * as React from "react";
 import { motion } from "motion/react";
 import { 
   CheckCircle2, 
   ChevronDown, 
+  ChevronLeft,
+  ChevronRight,
   ShieldCheck, 
   Zap, 
   Star, 
@@ -21,8 +24,11 @@ import {
   Clock,
   AlertTriangle,
   TrendingUp,
-  DollarSign
+  DollarSign,
+  Play
 } from "lucide-react";
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -49,6 +55,58 @@ const staggerContainer = {
     }
   },
   viewport: { once: true }
+};
+
+const TestimonialCarousel = () => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
+    Autoplay({ delay: 4000, stopOnInteraction: false })
+  ]);
+
+  const scrollPrev = React.useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = React.useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  const images = [
+    "https://rafaelpedrozo.online/wp-content/uploads/2026/04/prova1.jpg",
+    "https://rafaelpedrozo.online/wp-content/uploads/2026/04/prova2.jpg"
+  ];
+
+  return (
+    <div className="relative group max-w-[280px] sm:max-w-3xl mx-auto">
+      <div className="overflow-hidden rounded-2xl border border-white/10 gold-glow" ref={emblaRef}>
+        <div className="flex">
+          {images.map((src, index) => (
+            <div className="flex-[0_0_100%] min-w-0" key={index}>
+              <img 
+                src={src} 
+                alt={`Prova Social ${index + 1}`} 
+                className="w-full h-auto object-cover"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <button 
+        onClick={scrollPrev}
+        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 border border-white/10 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-gold hover:text-black"
+      >
+        <ChevronLeft className="w-6 h-6" />
+      </button>
+      
+      <button 
+        onClick={scrollNext}
+        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 border border-white/10 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-gold hover:text-black"
+      >
+        <ChevronRight className="w-6 h-6" />
+      </button>
+    </div>
+  );
 };
 
 export default function App() {
@@ -113,7 +171,7 @@ export default function App() {
                 transition={{ duration: 0.5 }}
               >
                 <Badge variant="outline" className="mb-4 border-gold/50 text-gold px-3 py-0.5 md:px-4 md:py-1 uppercase tracking-widest text-[9px] md:text-[10px] font-bold bg-black/40 backdrop-blur-sm">
-                  Oportunidade Única para Iniciantes
+                  Oportunidade Única
                 </Badge>
               </motion.div>
               
@@ -272,39 +330,31 @@ export default function App() {
               <p className="text-muted-foreground text-xs md:text-base">Fornecedores nacionais, internacionais e estratégias de elite.</p>
             </div>
             
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 { 
-                  title: "Módulo 1: Fornecedores com Nota Fiscal", 
-                  desc: "Lista validada de fornecedores nacionais para compra segura, legal e com margem real.",
-                  tag: "ESSENCIAL"
+                  title: "Uma Lista Premium de Fornecedores", 
+                  desc: "Lista de fornecedores validadas por mim, compre de forma segura, legal e com margem.",
+                  tag: "LISTA"
                 },
                 { 
-                  title: "Módulo 2: Fornecedores de Baixo Custo", 
-                  desc: "Estratégias para acessar fornecedores com preços competitivos mantendo controle e lucro.",
-                  tag: "ESTRATÉGICO"
-                },
-                { 
-                  title: "Módulo 3: Compras Internacionais", 
-                  desc: "Métodos para importar com segurança e previsibilidade. Aprenda a comprar e enviar direto para seu endereço.",
-                  tag: "AVANÇADO"
-                },
-                { 
-                  title: "Módulo 4: Bônus Exclusivos", 
+                  title: "Bônus Exclusivos", 
                   desc: "Materiais extras, atualizações futuras e conteúdos estratégicos liberados aos alunos.",
                   tag: "BÔNUS"
+                },
+                { 
+                  title: "Suporte Personalizado", 
+                  desc: "Acesso direto ao meu WhatsApp pessoal para tirar dúvidas, validar fornecedores e garantir que você tenha o acompanhamento necessário para lucrar.",
+                  tag: "SUPORTE"
                 }
-              ].map((module, i) => (
+              ].map((item, i) => (
                 <Card key={i} className="bg-black border-white/10 hover:border-gold/50 transition-all duration-500 overflow-hidden group">
-                  <CardHeader className="relative">
-                    <Badge className="absolute top-4 right-4 bg-gold text-black font-bold text-[10px]">{module.tag}</Badge>
-                    <CardTitle className="text-lg pt-4">{module.title}</CardTitle>
+                  <CardHeader className="space-y-3">
+                    <Badge className="w-fit bg-gold text-black font-bold text-[10px]">{item.tag}</Badge>
+                    <CardTitle className="text-lg leading-tight">{item.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{module.desc}</p>
-                    <div className="mt-6 flex items-center text-gold text-xs font-bold gap-1 opacity-100 lg:opacity-0 group-hover:opacity-100 transition-opacity">
-                      VER DETALHES <ArrowRight className="w-3 h-3" />
-                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -319,34 +369,50 @@ export default function App() {
               <h2 className="text-lg md:text-4xl font-bold uppercase tracking-tighter mb-4 text-balance font-heading">Entrando hoje você recebe esses <span className="text-gold">presentes exclusivos</span></h2>
             </div>
             
-            <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-10">
               <motion.div 
-                className="p-6 md:p-8 rounded-3xl border border-gold/20 bg-gradient-to-br from-gold/5 to-transparent relative overflow-hidden group"
+                className="rounded-3xl border border-white/10 bg-black overflow-hidden group hover:border-gold/30 transition-all duration-500"
                 whileHover={{ y: -5 }}
               >
-                <div className="relative z-10">
-                  <Badge className="mb-4 bg-gold text-black">BÔNUS 1</Badge>
-                  <h3 className="text-xl md:text-2xl font-bold mb-4 italic uppercase tracking-tighter">Empresa de Envio</h3>
-                  <p className="text-sm md:text-base text-muted-foreground mb-6">Você terá acesso a uma empresa de envio internacional, confiável e uma aula bônus completa para entender exatamente como funciona o processo de envio.</p>
-                  <div className="text-gold font-bold">De R$97 por R$0</div>
+                <div className="aspect-[16/9] overflow-hidden">
+                  <img 
+                    src="https://rafaelpedrozo.online/wp-content/uploads/2026/04/ChatGPT-Image-13-de-abr.-de-2026-17_05_12.png" 
+                    alt="MasterClass Bonus" 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    referrerPolicy="no-referrer"
+                  />
                 </div>
-                <div className="absolute -right-10 -bottom-10 opacity-10 group-hover:opacity-20 transition-opacity">
-                  <Zap className="w-32 h-32 md:w-40 md:h-40 text-gold" />
+                <div className="p-6 md:p-8">
+                  <Badge className="mb-4 bg-gold text-black font-bold">BÔNUS 1</Badge>
+                  <h3 className="text-xl md:text-2xl font-bold mb-4 uppercase tracking-tighter font-heading">MasterClass - Os Principais Pilares para uma Loja de Sucesso</h3>
+                  <p className="text-sm md:text-base text-muted-foreground mb-6">Domine as estratégias que os grandes players usam para escalar do zero ao faturamento sólido, sem perder tempo com amadorismo.</p>
+                  <div className="flex items-center gap-3">
+                    <span className="text-muted-foreground line-through text-xs md:text-sm">De R$97</span>
+                    <span className="text-gold font-black text-lg md:text-xl">POR R$0</span>
+                  </div>
                 </div>
               </motion.div>
               
               <motion.div 
-                className="p-6 md:p-8 rounded-3xl border border-gold/20 bg-gradient-to-br from-gold/5 to-transparent relative overflow-hidden group"
+                className="rounded-3xl border border-white/10 bg-black overflow-hidden group hover:border-gold/30 transition-all duration-500"
                 whileHover={{ y: -5 }}
               >
-                <div className="relative z-10">
-                  <Badge className="mb-4 bg-gold text-black">BÔNUS 2</Badge>
-                  <h3 className="text-xl md:text-2xl font-bold mb-4 italic uppercase tracking-tighter">Master Class Estratégica</h3>
-                  <p className="text-sm md:text-base text-muted-foreground mb-6">Uma master class exclusiva com estrategista digital para você aprender como estruturar anúncios, posicionar sua loja e escalar vendas com método.</p>
-                  <div className="text-gold font-bold">De R$197 por R$0</div>
+                <div className="aspect-[16/9] overflow-hidden">
+                  <img 
+                    src="https://rafaelpedrozo.online/wp-content/uploads/2026/04/ChatGPT-Image-13-de-abr.-de-2026-16_58_12.png" 
+                    alt="Planilha Bonus" 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    referrerPolicy="no-referrer"
+                  />
                 </div>
-                <div className="absolute -right-10 -bottom-10 opacity-10 group-hover:opacity-20 transition-opacity">
-                  <TrendingUp className="w-32 h-32 md:w-40 md:h-40 text-gold" />
+                <div className="p-6 md:p-8">
+                  <Badge className="mb-4 bg-gold text-black font-bold">BÔNUS 2</Badge>
+                  <h3 className="text-xl md:text-2xl font-bold mb-4 uppercase tracking-tighter font-heading">Planilha para Gestão Financeira do seu Negócio</h3>
+                  <p className="text-sm md:text-base text-muted-foreground mb-6">Tenha o controle total do seu lucro. Saiba exatamente quanto entra e quanto sai para tomar decisões inteligentes e lucrativas.</p>
+                  <div className="flex items-center gap-3">
+                    <span className="text-muted-foreground line-through text-xs md:text-sm">De R$47</span>
+                    <span className="text-gold font-black text-lg md:text-xl">POR R$0</span>
+                  </div>
                 </div>
               </motion.div>
             </div>
@@ -358,30 +424,20 @@ export default function App() {
           <div className="max-w-5xl mx-auto text-center">
             <h2 className="text-lg md:text-5xl font-bold uppercase tracking-tighter mb-12 md:mb-16 font-heading">Quem comprou <span className="text-gold">aprovou!</span></h2>
             
-            <div className="grid md:grid-cols-3 gap-6">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="bg-black p-6 rounded-2xl border border-white/5 text-left">
-                  <div className="flex gap-1 mb-4">
-                    {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="w-4 h-4 fill-gold text-gold" />)}
-                  </div>
-                  <p className="text-sm italic text-muted-foreground mb-6">"Melhor investimento que fiz para minha loja. Os fornecedores são reais e a margem é exatamente o que eu precisava para crescer."</p>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gold/20" />
-                    <div>
-                      <div className="text-sm font-bold">Lojista Satisfeito</div>
-                      <div className="text-[10px] text-muted-foreground">Verificado</div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            <div className="mt-12 md:mt-16 p-6 md:p-8 rounded-2xl border border-white/5 bg-black inline-block max-w-md mx-auto">
-              <div className="flex items-center gap-4 mb-4">
-                <MessageCircle className="text-gold w-6 h-6" />
-                <span className="font-bold">Suporte via WhatsApp</span>
+            <TestimonialCarousel />
+
+            <div className="mt-20 md:mt-32">
+              <h2 className="text-lg md:text-4xl font-bold uppercase tracking-tighter mb-8 md:mb-12 font-heading">Assista o depoimento do <span className="text-gold">Renato</span></h2>
+              <div className="relative max-w-4xl mx-auto aspect-video rounded-2xl overflow-hidden border border-white/10 gold-glow bg-black group">
+                <iframe 
+                  className="w-full h-full"
+                  src="https://www.youtube.com/embed/A424YzHQO3c?playsinline=1&rel=0" 
+                  title="YouTube video player" 
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowFullScreen
+                ></iframe>
               </div>
-              <p className="text-sm text-muted-foreground">Temos um time dedicado para tirar suas dúvidas e garantir que você tenha a melhor experiência possível.</p>
             </div>
           </div>
         </section>
@@ -427,9 +483,11 @@ export default function App() {
                   <div className="text-[10px] md:text-xs text-muted-foreground mt-2">Pagamento único. Sem mensalidades.</div>
                 </div>
                 
-                <Button className="w-full bg-gold text-black hover:bg-gold/90 h-14 md:h-16 text-lg md:text-xl font-black italic uppercase tracking-tight rounded-2xl gold-glow transition-all hover:scale-[1.02]">
-                  QUERO MEU ACESSO AGORA
-                </Button>
+                <a href="https://pay.cakto.com.br/3e67ky2_846038" target="_blank" rel="noopener noreferrer" className="block w-full">
+                  <Button className="w-full bg-gold text-black hover:bg-gold/90 h-14 md:h-16 text-lg md:text-xl font-black italic uppercase tracking-tight rounded-2xl gold-glow transition-all hover:scale-[1.02]">
+                    QUERO MEU ACESSO AGORA
+                  </Button>
+                </a>
                 
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-4 opacity-50 grayscale">
                   <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" className="h-3 md:h-4" />
@@ -497,7 +555,7 @@ export default function App() {
               <div className="text-center md:text-left">
                 <h2 className="text-lg md:text-5xl font-bold mb-6 md:mb-8 uppercase tracking-tighter font-heading">Quem está por trás <br /><span className="text-gold">dessa solução?</span></h2>
                 <p className="text-sm md:text-lg text-muted-foreground mb-6">
-                  Estrategista com anos de experiência no mercado de eletrônicos, focado em ajudar novos empreendedores a evitarem os erros que custam caro.
+                  Rafael Diogo Pedrozo Dias, 33 anos, empresário, dono de duas lojas no segmento. Cristão, casado, pai do Vitor e da Rafaela.
                 </p>
                 <p className="text-sm md:text-lg text-muted-foreground mb-8">
                   Depois de conquistar meus principais objetivos, resolvi proporcionar a oportunidade de realizar os seus sonhos nesse mercado que está apenas começando.
