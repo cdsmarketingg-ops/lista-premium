@@ -95,18 +95,18 @@ export default function App() {
           </div>
 
           {/* Mobile Image (Top) */}
-          <div className="w-full md:hidden relative z-10 -mb-12">
+          <div className="w-full md:hidden relative z-10 -mb-40 sm:-mb-56">
             <img 
               src="https://rafaelpedrozo.online/wp-content/uploads/2026/04/ChatGPT-Image-13-de-abr.-de-2026-14_48_20-Copia.png" 
               alt="Hero Mobile" 
               className="w-full h-auto object-cover"
               referrerPolicy="no-referrer"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
           </div>
           
           <div className="max-w-7xl mx-auto relative z-20 w-full px-4">
-            <div className="max-w-3xl mx-auto md:mx-0 text-center md:text-left">
+            <div className="max-w-3xl mx-auto md:mx-0 text-center md:text-left -mt-10 md:mt-0">
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -118,12 +118,12 @@ export default function App() {
               </motion.div>
               
               <motion.h1 
-                className="text-4xl md:text-7xl font-extrabold tracking-tight mb-6 text-balance leading-[1.15] md:leading-[1.1] drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]"
+                className="text-2xl md:text-7xl font-bold uppercase tracking-tighter mb-6 text-balance leading-[1.15] md:leading-[1.1] drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] font-heading"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
               >
-                Lucre mais na revenda de eletrônicos com <span className="text-gold italic">segurança</span> e margem real.
+                Eu vou te entregar os <span className="text-gold">maiores e melhores</span> fornecedores do mercado.
               </motion.h1>
               
               <motion.p 
@@ -153,51 +153,73 @@ export default function App() {
           </div>
         </section>
 
+        {/* Ticker Section */}
+        <div className="bg-gold py-3 md:py-4 overflow-hidden border-y border-white/10 relative z-30">
+          <motion.div 
+            className="flex whitespace-nowrap"
+            animate={{ x: [0, -1000] }}
+            transition={{ 
+              repeat: Infinity, 
+              duration: 20, 
+              ease: "linear" 
+            }}
+          >
+            {[...Array(10)].map((_, i) => (
+              <div key={i} className="flex items-center mx-4 md:mx-8">
+                <span className="text-black font-black italic uppercase tracking-tighter text-sm md:text-xl">
+                  LISTA PREMIUM - RAFAEL PEDROZO
+                </span>
+                <span className="text-black mx-4 md:mx-8 text-xl md:text-2xl">★</span>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
         {/* Problem Section */}
-        <section className="py-16 md:py-24 px-4 bg-white/[0.02]">
+        <section className="py-20 md:py-32 px-4 bg-white/[0.02]">
           <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-center">
+            <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
               <motion.div {...fadeIn}>
-                <h2 className="text-2xl md:text-5xl font-bold mb-6 md:mb-8 leading-tight text-balance">
+                <h2 className="text-xl md:text-5xl font-bold uppercase tracking-tighter mb-6 md:mb-8 leading-tight text-balance font-heading">
                   Você não está vendendo pouco. <br />
                   <span className="text-gold">Você está perdendo margem.</span>
                 </h2>
-                <p className="text-muted-foreground text-base md:text-lg mb-8">
+                <p className="text-muted-foreground text-sm md:text-lg mb-10 max-w-2xl mx-auto">
                   Quando a operação não é estruturada, o prejuízo não aparece só no caixa — ele aparece na sua segurança, no seu crescimento e na sua paz.
                 </p>
                 
-                <div className="space-y-4">
+                <div className="grid sm:grid-cols-2 gap-4 md:gap-6 mb-12 w-full">
                   {[
                     { icon: AlertTriangle, text: "Risco oculto de mercadoria sem procedência" },
                     { icon: TrendingUp, text: "Margens esmagadas por fornecedores caros" },
                     { icon: Clock, text: "Esforço sem escala: trabalha muito e ganha pouco" },
                     { icon: DollarSign, text: "Caixa instável e falta de previsibilidade" }
                   ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3">
+                    <div key={i} className="flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/10">
                       <div className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center shrink-0">
                         <item.icon className="text-red-500 w-4 h-4" />
                       </div>
-                      <span className="text-sm font-medium">{item.text}</span>
+                      <span className="text-xs md:text-sm font-medium text-left">{item.text}</span>
                     </div>
                   ))}
                 </div>
               </motion.div>
               
               <motion.div 
-                className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 gold-glow mt-8 lg:mt-0"
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 gold-glow w-full max-w-3xl"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
               >
                 <img 
-                  src="https://picsum.photos/seed/business-money/1200/800" 
+                  src="https://rafaelpedrozo.online/wp-content/uploads/2026/04/ChatGPT-Image-13-de-abr.-de-2026-15_24_03.png" 
                   alt="Business Success" 
-                  className="object-cover w-full h-full grayscale hover:grayscale-0 transition-all duration-700"
+                  className="object-cover w-full h-full transition-all duration-700"
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6 md:p-8">
-                  <p className="text-white text-sm md:text-base font-medium italic">"A real mudança começa quando você para de vender no improviso."</p>
+                  <p className="text-white text-xs md:text-base font-medium italic">"A real mudança começa quando você para de vender no improviso."</p>
                 </div>
               </motion.div>
             </div>
@@ -208,8 +230,8 @@ export default function App() {
         <section className="py-16 md:py-24 px-4">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12 md:mb-16">
-              <h2 className="text-2xl md:text-4xl font-bold mb-4 text-balance">Eu vou te entregar os <span className="text-gold">maiores e melhores</span> fornecedores do mercado</h2>
-              <p className="text-muted-foreground text-sm md:text-base">iPhone, Xiaomi, DJI, PlayStation, JBL e muito mais.</p>
+              <h2 className="text-lg md:text-4xl font-bold uppercase tracking-tighter mb-4 text-balance font-heading">Eu vou te entregar os <span className="text-gold">maiores e melhores</span> fornecedores do mercado</h2>
+              <p className="text-muted-foreground text-xs md:text-base">iPhone, Xiaomi, DJI, PlayStation, JBL e muito mais.</p>
             </div>
             
             <motion.div 
@@ -246,8 +268,8 @@ export default function App() {
         <section className="py-16 md:py-24 px-4 bg-gold/5">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12 md:mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-4">O que você recebe?</h2>
-              <p className="text-muted-foreground text-sm md:text-base">Fornecedores nacionais, internacionais e estratégias de elite.</p>
+              <h2 className="text-xl md:text-5xl font-bold uppercase tracking-tighter mb-4 font-heading">O que você recebe?</h2>
+              <p className="text-muted-foreground text-xs md:text-base">Fornecedores nacionais, internacionais e estratégias de elite.</p>
             </div>
             
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -294,7 +316,7 @@ export default function App() {
         <section className="py-16 md:py-24 px-4">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12 md:mb-16">
-              <h2 className="text-2xl md:text-4xl font-bold mb-4 text-balance">Entrando hoje você recebe esses <span className="text-gold">presentes exclusivos</span></h2>
+              <h2 className="text-lg md:text-4xl font-bold uppercase tracking-tighter mb-4 text-balance font-heading">Entrando hoje você recebe esses <span className="text-gold">presentes exclusivos</span></h2>
             </div>
             
             <div className="grid md:grid-cols-2 gap-6 md:gap-8">
@@ -334,7 +356,7 @@ export default function App() {
         {/* Testimonials / Social Proof */}
         <section className="py-16 md:py-24 px-4 bg-white/[0.02]">
           <div className="max-w-5xl mx-auto text-center">
-            <h2 className="text-2xl md:text-5xl font-bold mb-12 md:mb-16 italic uppercase tracking-tighter">Quem comprou <span className="text-gold">aprovou!</span></h2>
+            <h2 className="text-lg md:text-5xl font-bold uppercase tracking-tighter mb-12 md:mb-16 font-heading">Quem comprou <span className="text-gold">aprovou!</span></h2>
             
             <div className="grid md:grid-cols-3 gap-6">
               {[1, 2, 3].map((i) => (
@@ -371,7 +393,7 @@ export default function App() {
           <div className="max-w-xl mx-auto relative z-10">
             <div className="text-center mb-10 md:mb-12">
               <Badge className="bg-gold text-black mb-4">OFERTA LIMITADA</Badge>
-              <h2 className="text-3xl md:text-6xl font-black italic uppercase tracking-tighter mb-4">LISTA <span className="text-gold">PREMIUM</span></h2>
+              <h2 className="text-xl md:text-6xl font-black uppercase tracking-tighter mb-4 font-heading">LISTA <span className="text-gold">PREMIUM</span></h2>
               <p className="text-muted-foreground text-sm md:text-base">Direto da Fonte - Acesso Imediato</p>
             </div>
             
@@ -426,7 +448,7 @@ export default function App() {
             <div className="w-16 h-16 md:w-20 md:h-20 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-8">
               <ShieldCheck className="text-gold w-8 h-8 md:w-10 md:h-10" />
             </div>
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 italic uppercase tracking-tighter text-balance">Risco zero para você. <br /><span className="text-gold">Garantia incondicional de 7 dias.</span></h2>
+            <h2 className="text-lg md:text-3xl font-bold mb-6 uppercase tracking-tighter text-balance font-heading">Risco zero para você. <br /><span className="text-gold">Garantia incondicional de 7 dias.</span></h2>
             <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
               Você pode acessar todo o conteúdo, explorar os fornecedores, assistir às aulas e analisar com calma. Se por qualquer motivo você sentir que isso não é para você, basta solicitar o reembolso dentro de 7 dias e devolveremos 100% do seu investimento. Sem perguntas. Sem burocracia.
             </p>
@@ -437,7 +459,7 @@ export default function App() {
         {/* FAQ */}
         <section className="py-16 md:py-24 px-4 bg-white/[0.02]">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl md:text-4xl font-bold mb-10 md:mb-12 text-center italic uppercase tracking-tighter">Dúvidas <span className="text-gold">frequentes</span></h2>
+            <h2 className="text-lg md:text-4xl font-bold mb-10 md:mb-12 text-center uppercase tracking-tighter font-heading">Dúvidas <span className="text-gold">frequentes</span></h2>
             
             <Accordion type="single" collapsible className="w-full space-y-4">
               {[
@@ -473,7 +495,7 @@ export default function App() {
               </div>
               
               <div className="text-center md:text-left">
-                <h2 className="text-2xl md:text-5xl font-bold mb-6 md:mb-8 italic uppercase tracking-tighter">Quem está por trás <br /><span className="text-gold">dessa solução?</span></h2>
+                <h2 className="text-lg md:text-5xl font-bold mb-6 md:mb-8 uppercase tracking-tighter font-heading">Quem está por trás <br /><span className="text-gold">dessa solução?</span></h2>
                 <p className="text-sm md:text-lg text-muted-foreground mb-6">
                   Estrategista com anos de experiência no mercado de eletrônicos, focado em ajudar novos empreendedores a evitarem os erros que custam caro.
                 </p>
