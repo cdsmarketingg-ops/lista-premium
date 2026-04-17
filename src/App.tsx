@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
+import AutoScroll from 'embla-carousel-auto-scroll';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -105,6 +106,84 @@ const TestimonialCarousel = () => {
       >
         <ChevronRight className="w-6 h-6" />
       </button>
+    </div>
+  );
+};
+
+const SupplierShowcase = () => {
+  const images = [
+    "https://rafaelpedrozo.online/wp-content/uploads/2026/04/IMG_1355.JPG.jpeg",
+    "https://rafaelpedrozo.online/wp-content/uploads/2026/04/IMG_1356.jpg",
+    "https://rafaelpedrozo.online/wp-content/uploads/2026/04/IMG_1357.jpg",
+    "https://rafaelpedrozo.online/wp-content/uploads/2026/04/IMG_1359.jpg",
+    "https://rafaelpedrozo.online/wp-content/uploads/2026/04/IMG_1360.JPG.jpeg",
+    "https://rafaelpedrozo.online/wp-content/uploads/2026/04/IMG_1361.jpg",
+    "https://rafaelpedrozo.online/wp-content/uploads/2026/04/IMG_1362.jpg",
+    "https://rafaelpedrozo.online/wp-content/uploads/2026/04/IMG_1364.jpg",
+    "https://rafaelpedrozo.online/wp-content/uploads/2026/04/IMG_1365.jpg",
+    "https://rafaelpedrozo.online/wp-content/uploads/2026/04/IMG_1366.jpg",
+    "https://rafaelpedrozo.online/wp-content/uploads/2026/04/IMG_1379.jpg",
+    "https://rafaelpedrozo.online/wp-content/uploads/2026/04/IMG_1380.jpg"
+  ];
+
+  const [emblaRef] = useEmblaCarousel({ 
+    loop: true, 
+    dragFree: true,
+    align: 'start'
+  }, [
+    AutoScroll({ 
+      speed: 0.5, // Even slower and smoother
+      stopOnInteraction: false,
+      stopOnMouseEnter: true
+    })
+  ]);
+
+  return (
+    <div className="py-12 bg-black/40 overflow-hidden relative">
+      <div className="absolute inset-y-0 left-0 w-20 md:w-40 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-20 md:w-40 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+      
+      <div className="flex mb-8 justify-center">
+        <Badge className="bg-gold text-black font-bold px-4 py-1 uppercase tracking-tighter">Produtos reais dos fornecedores</Badge>
+      </div>
+
+      <div className="cursor-grab active:cursor-grabbing mb-8" ref={emblaRef}>
+        <div className="flex gap-4 md:gap-6">
+          {images.map((src, index) => (
+            <div 
+              key={index} 
+              className="w-[200px] md:w-[300px] aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 shrink-0 gold-glow bg-zinc-900"
+            >
+              <img 
+                src={src} 
+                alt={`Supplier product ${index}`} 
+                className="w-full h-full object-cover pointer-events-none"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          ))}
+          {/* Duplicate set for seamless looping */}
+          {images.map((src, index) => (
+            <div 
+              key={`dup-${index}`} 
+              className="w-[200px] md:w-[300px] aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 shrink-0 gold-glow bg-zinc-900"
+            >
+              <img 
+                src={src} 
+                alt={`Supplier product ${index} duplicate`} 
+                className="w-full h-full object-cover pointer-events-none"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex justify-center">
+        <Badge className="bg-gold/20 text-gold border-gold/30 font-medium px-4 py-1 italic uppercase text-[10px] md:text-xs">
+          Arraste para explorar
+        </Badge>
+      </div>
     </div>
   );
 };
@@ -361,6 +440,8 @@ export default function App() {
             </div>
           </div>
         </section>
+
+        <SupplierShowcase />
 
         {/* Exclusive Bonuses */}
         <section className="py-16 md:py-24 px-4">
